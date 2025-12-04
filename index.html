@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora Futurista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+/* Animated background particles */
+body::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(0, 191, 255, 0.2) 0%, transparent 50%);
+    animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(30px, -30px) rotate(120deg); }
+    66% { transform: translate(-20px, 20px) rotate(240deg); }
+}
+
+/* ANIMAÇÕES ABSURDAS NAS LATERAIS */
+
+/* Círculos pulsantes gigantes */
+body::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(138, 43, 226, 0.4) 0%, transparent 70%);
+    top: -200px;
+    left: -200px;
+    animation: megaPulse 4s ease-in-out infinite, moveCircle1 15s linear infinite;
+    z-index: 0;
+}
+
+@keyframes megaPulse {
+    0%, 100% { 
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% { 
+        transform: scale(1.5);
+        opacity: 0.8;
+    }
+}
+
+@keyframes moveCircle1 {
+    0%, 100% { top: -200px; left: -200px; }
+    25% { top: -150px; left: 100%; }
+    50% { top: 100%; left: 100%; }
+    75% { top: 100%; left: -200px; }
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.particle-1 {
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(0, 191, 255, 0.6) 0%, transparent 70%);
+    top: 20%;
+    left: 5%;
+    animation: floatParticle1 8s ease-in-out infinite;
+    box-shadow: 0 0 60px rgba(0, 191, 255, 0.8);
+}
+
+@keyframes floatParticle1 {
+    0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+    25% { transform: translateY(-50px) translateX(30px) scale(1.2); }
+    50% { transform: translateY(-100px) translateX(-20px) scale(0.8); }
+    75% { transform: translateY(-50px) translateX(40px) scale(1.1); }
+}
+
+.particle-2 {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(138, 43, 226, 0.5) 0%, transparent 70%);
+    top: 60%;
+    left: 8%;
+    animation: floatParticle2 10s ease-in-out infinite;
+    box-shadow: 0 0 80px rgba(138, 43, 226, 0.9);
+}
+
+@keyframes floatParticle2 {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-80px) rotate(180deg); }
+}
+
+.particle-3 {
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, rgba(255, 0, 255, 0.7) 0%, transparent 70%);
+    top: 10%;
+    left: 2%;
+    animation: floatParticle3 6s ease-in-out infinite;
+    box-shadow: 0 0 50px rgba(255, 0, 255, 0.8);
+}
+
+@keyframes floatParticle3 {
+    0%, 100% { transform: translateY(0) translateX(0); opacity: 0.7; }
+    50% { transform: translateY(100px) translateX(-30px); opacity: 1; }
+}
+
+/* Partículas laterais direitas */
+.particle-4 {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(0, 255, 255, 0.6) 0%, transparent 70%);
+    top: 30%;
+    right: 5%;
+    animation: floatParticle4 9s ease-in-out infinite;
+    box-shadow: 0 0 70px rgba(0, 255, 255, 0.9);
+}
+
+@keyframes floatParticle4 {
+    0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+    33% { transform: translateY(-60px) scale(1.3) rotate(120deg); }
+    66% { transform: translateY(60px) scale(0.9) rotate(240deg); }
+}
+
+.particle-5 {
+    width: 90px;
+    height: 90px;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.7) 0%, transparent 70%);
+    top: 70%;
+    right: 10%;
+    animation: floatParticle5 7s ease-in-out infinite;
+    box-shadow: 0 0 65px rgba(102, 126, 234, 0.9);
+}
+
+@keyframes floatParticle5 {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(-50px) translateY(-70px); }
+}
+
+.particle-6 {
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle, rgba(240, 147, 251, 0.7) 0%, transparent 70%);
+    top: 15%;
+    right: 3%;
+    animation: floatParticle6 11s ease-in-out infinite;
+    box-shadow: 0 0 55px rgba(240, 147, 251, 0.9);
+}
+
+@keyframes floatParticle6 {
+    0%, 100% { transform: rotate(0deg) translateY(0); opacity: 0.6; }
+    50% { transform: rotate(360deg) translateY(-90px); opacity: 1; }
+}
+
+/* Formas geométricas rotativas */
+.geometric-1 {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border: 3px solid rgba(138, 43, 226, 0.6);
+    top: 40%;
+    left: -75px;
+    animation: rotateGeometric1 20s linear infinite;
+    box-shadow: 0 0 40px rgba(138, 43, 226, 0.8), inset 0 0 40px rgba(138, 43, 226, 0.4);
+}
+
+@keyframes rotateGeometric1 {
+    0% { transform: rotate(0deg) scale(1); border-radius: 0%; }
+    25% { transform: rotate(90deg) scale(1.2); border-radius: 30%; }
+    50% { transform: rotate(180deg) scale(0.8); border-radius: 50%; }
+    75% { transform: rotate(270deg) scale(1.1); border-radius: 30%; }
+    100% { transform: rotate(360deg) scale(1); border-radius: 0%; }
+}
+
+.geometric-2 {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border: 4px solid rgba(0, 191, 255, 0.7);
+    top: 20%;
+    right: -60px;
+    animation: rotateGeometric2 15s linear infinite reverse;
+    box-shadow: 0 0 50px rgba(0, 191, 255, 0.9), inset 0 0 50px rgba(0, 191, 255, 0.5);
+}
+
+@keyframes rotateGeometric2 {
+    0% { transform: rotate(0deg) translateY(0); border-radius: 50%; }
+    33% { transform: rotate(120deg) translateY(-40px); border-radius: 20%; }
+    66% { transform: rotate(240deg) translateY(40px); border-radius: 0%; }
+    100% { transform: rotate(360deg) translateY(0); border-radius: 50%; }
+}
+
+.geometric-3 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border: 3px solid rgba(255, 0, 255, 0.6);
+    top: 80%;
+    left: 10%;
+    animation: rotateGeometric3 12s ease-in-out infinite;
+    box-shadow: 0 0 45px rgba(255, 0, 255, 0.9);
+}
+
+@keyframes rotateGeometric3 {
+    0%, 100% { transform: rotate(0deg) scale(1); border-radius: 10%; }
+    50% { transform: rotate(180deg) scale(1.5); border-radius: 40%; }
+}
+
+/* Raios neon nas laterais */
+.neon-ray-left {
+    position: absolute;
+    width: 2px;
+    height: 300px;
+    background: linear-gradient(180deg, transparent 0%, rgba(138, 43, 226, 0.8) 50%, transparent 100%);
+    left: 15%;
+    top: 0;
+    animation: rayPulse1 3s ease-in-out infinite, rayMove1 8s linear infinite;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 1);
+}
+
+@keyframes rayPulse1 {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+@keyframes rayMove1 {
+    0% { top: -300px; }
+    100% { top: 100%; }
+}
+
+.neon-ray-right {
+    position: absolute;
+    width: 2px;
+    height: 250px;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 191, 255, 0.8) 50%, transparent 100%);
+    right: 15%;
+    top: 0;
+    animation: rayPulse2 2.5s ease-in-out infinite, rayMove2 10s linear infinite;
+    box-shadow: 0 0 20px rgba(0, 191, 255, 1);
+}
+
+@keyframes rayPulse2 {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+@keyframes rayMove2 {
+    0% { top: 100%; }
+    100% { top: -250px; }
+}
+
+/* Ondas pulsantes */
+.wave {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 2px solid rgba(138, 43, 226, 0.5);
+    animation: waveExpand 4s ease-out infinite;
+}
+
+.wave-1 {
+    top: 50%;
+    left: -100px;
+    animation-delay: 0s;
+}
+
+.wave-2 {
+    top: 50%;
+    left: -100px;
+    animation-delay: 1s;
+}
+
+.wave-3 {
+    top: 50%;
+    right: -100px;
+    animation-delay: 0.5s;
+}
+
+.wave-4 {
+    top: 50%;
+    right: -100px;
+    animation-delay: 1.5s;
+}
+
+@keyframes waveExpand {
+    0% {
+        transform: scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 480px;
+    padding: 50px 40px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 8px 32px 0 rgba(31, 38, 135, 0.37),
+        0 0 80px rgba(138, 43, 226, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1 {
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-align: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.5)); }
+    to { filter: drop-shadow(0 0 20px rgba(138, 43, 226, 0.8)); }
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    font-size: 0.9rem;
+    margin-bottom: 40px;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 18px 25px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(138, 43, 226, 0.3);
+    border-radius: 15px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+input[type="number"]::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 300;
+}
+
+input[type="number"]:focus {
+    border-color: #8a2be2;
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 
+        0 0 20px rgba(138, 43, 226, 0.4),
+        0 4px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+button {
+    padding: 18px 25px;
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.3) 0%, rgba(102, 126, 234, 0.3) 100%);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(138, 43, 226, 0.4);
+    border-radius: 15px;
+    color: #fff;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.2);
+    letter-spacing: 0.5px;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+button:hover {
+    transform: translateY(-4px);
+    border-color: #8a2be2;
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.5) 0%, rgba(102, 126, 234, 0.5) 100%);
+    box-shadow: 
+        0 8px 25px rgba(138, 43, 226, 0.4),
+        0 0 40px rgba(138, 43, 226, 0.3);
+}
+
+button:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Ícones nos botões */
+button:nth-child(1)::after { content: ' ➕'; }
+button:nth-child(2)::after { content: ' ➖'; }
+button:nth-child(3)::after { content: ' ✖️'; }
+button:nth-child(4)::after { content: ' ➗'; }
+
+.resultado-container {
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 2px solid rgba(138, 43, 226, 0.3);
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.2),
+        inset 0 0 20px rgba(138, 43, 226, 0.1);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), inset 0 0 20px rgba(138, 43, 226, 0.1); }
+    50% { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), inset 0 0 30px rgba(138, 43, 226, 0.2); }
+}
+
+#resultado {
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 40px 30px;
+        max-width: 95%;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .button-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    input[type="number"] {
+        padding: 15px 20px;
+        font-size: 1rem;
+    }
+    
+    button {
+        padding: 15px 20px;
+    }
+}
+
+/* Glowing effect on focus */
+input[type="number"]:focus ~ .glow,
+button:hover ~ .glow {
+    opacity: 1;
+}
+</style>
+</head>
+<body>
+<!-- Partículas animadas -->
+<div class="particle particle-1"></div>
+<div class="particle particle-2"></div>
+<div class="particle particle-3"></div>
+<div class="particle particle-4"></div>
+<div class="particle particle-5"></div>
+<div class="particle particle-6"></div>
+
+<!-- Formas geométricas -->
+<div class="geometric-1"></div>
+<div class="geometric-2"></div>
+<div class="geometric-3"></div>
+
+<!-- Raios neon -->
+<div class="neon-ray-left"></div>
+<div class="neon-ray-right"></div>
+
+<!-- Ondas pulsantes -->
+<div class="wave wave-1"></div>
+<div class="wave wave-2"></div>
+<div class="wave wave-3"></div>
+<div class="wave wave-4"></div>
+
+<div class="container">
+    <h1>✨ CALCULADORA ✨</h1>
+    <p class="subtitle">FUTURISTA</p>
+    
+    <div class="input-group">
+        <input type="number" id="num1" placeholder="Digite o primeiro número">
+        <input type="number" id="num2" placeholder="Digite o segundo número">
+    </div>
+    
+    <div class="button-grid">
+        <button onclick="calcular('soma')">SOMAR</button>
+        <button onclick="calcular('subtracao')">SUBTRAIR</button>
+        <button onclick="calcular('multiplicacao')">MULTIPLICAR</button>
+        <button onclick="calcular('divisao')">DIVIDIR</button>
+    </div>
+    
+    <div class="resultado-container">
+        <p id="resultado">Resultado: </p>
+    </div>
+</div>
+
+<script src="js/calculadora.js"></script>
+</body>
+</html>
